@@ -6,7 +6,7 @@ Throughout, `ship` means `node "${CLAUDE_PLUGIN_ROOT}/bin/ship.mjs"`. It prints 
 
 ## Rules
 
-1. **Config holds project facts.** Read `.ship/config.md` first, and run `ship config` to validate it. Don't assume a repo, branch, command or tracker. If it's missing, tell the user to run `/ship:setup`.
+1. **Config holds project facts.** Read `.ship/config.md` first, and run `ship config` to validate it. Don't assume a repo, branch, command or tracker. If it's missing, tell the user to run `/ship:setup`. The one exception is a standalone `/ship:review`, which is read-only and needs no config.
 2. **The CLI owns state.** Change lifecycle, approvals and evidence only through `ship`. Never edit `.ship/runs/` or `.ship/approvals/`.
 3. **Git and the tracker are the truth.** The run file is a record of them. If `ship run resume` reports a mismatch, show it to the user and stop.
 4. **Evidence, not claims.** Say a check passed only if `ship gate status` shows `passed` or `user_reported`. Everything else is reported as not run, by name.

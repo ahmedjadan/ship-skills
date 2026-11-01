@@ -5,8 +5,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { approvalStatus, recordApproval, requireApproval } from '../lib/approvals.mjs';
-import { loadConfig } from '../lib/config.mjs';
+import { configWarnings, loadConfig } from '../lib/config.mjs';
 import { decide, hookOutput } from '../lib/guard.mjs';
+import { reviewScope } from '../lib/review.mjs';
 import * as runs from '../lib/run.mjs';
 import { checkResult, checkTicket, createTracker, publishBreakdown, validateBreakdown } from '../lib/tracker/contract.mjs';
 import { runConformance } from '../lib/tracker/conformance.mjs';
@@ -19,7 +20,7 @@ const { values: flags, positionals } = parseArgs({
     file: { type: 'string' }, quote: { type: 'string' }, by: { type: 'string' }, repo: { type: 'string' },
     name: { type: 'string' }, exit: { type: 'string' }, url: { type: 'string' }, spec: { type: 'string' },
     status: { type: 'string' }, note: { type: 'string' }, text: { type: 'string' }, 'ticket-file': { type: 'string' },
-    live: { type: 'boolean' },
+    base: { type: 'string' }, live: { type: 'boolean' },
   },
 });
 
@@ -158,6 +159,18 @@ function prCommand(ctx) {
   throw new ShipError('INVALID_ARGUMENT', `Unknown: pr ${verb}`);
 }
 
+// The config is optional here: a standalone review works on any git repo.
+function reviewInput() {
+  const cwd = process.cwd();
+  let ctx = null;
+  try {
+    ctx = loadConfig(cwd);
+  } catch (error) {
+    if (error.code !== 'CONFIG_MISSING') throw error;
+  }
+  return { cwd, ctx, target: rest[0], repo: flags.repo, base: flags.base };
+}
+
 async function main() {
   if (area === 'guard') {
     const decision = decide(JSON.parse(readStdin()));
@@ -165,9 +178,10 @@ async function main() {
     if (output) print(output);
     return undefined;
   }
+  if (area === 'review' && verb === 'scope') return reviewScope(reviewInput());
   const ctx = loadConfig(process.cwd());
   switch (area) {
-    case 'config': return { valid: true, root: ctx.root, repos: ctx.config.repos.map((repo) => repo.name), tracker: ctx.config.tracker.kind };
+    case 'config': return { valid: true, root: ctx.root, repos: ctx.config.repos.map((repo) => repo.name), tracker: ctx.config.tracker.kind, warnings: configWarnings(ctx) };
     case 'approve': return approve(ctx, need(verb, 'kind'), need(rest[0], 'reference'));
     case 'spec': return specCommand(ctx);
     case 'tickets': return ticketsCommand(ctx);

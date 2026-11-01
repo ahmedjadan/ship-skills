@@ -18,7 +18,7 @@ Most agent workflows are prompts, and a prompt can only ask. Ship pairs its skil
 | `/ship:spec` | Interviews you and writes a spec with acceptance ids |
 | `/ship:tickets` | Cuts the spec into vertical slices and publishes them |
 | `/ship:implement` | Builds the next unblocked ticket from an approved plan, or resumes one |
-| `/ship:review` | Reviews standards and spec separately, and checks every acceptance id has a test |
+| `/ship:review` | Reviews standards and spec separately. On a ticket, also checks every acceptance id has a test. On any branch or PR, runs read-only with no setup |
 | `/ship:pr` | Opens cross-linked PRs whose verification section comes from recorded evidence |
 
 You approve the spec, ticket breakdown, plan, review and PR. Everything else runs on its own.
@@ -32,7 +32,16 @@ Requires Claude Code and Node 20 or later.
 /plugin install ship@ship-skills
 ```
 
-Then run `/ship:setup` in your project.
+Then run `/ship:setup` in your project, new or existing. A new project needs a git repo with one commit, and nothing is verified until you add gates.
+
+To review an existing change without setting anything up:
+
+```text
+/ship:review feature/my-branch
+/ship:review 142 --spec docs/feature.md
+```
+
+This reviews one branch or PR, not a whole codebase, and writes no state. Without documented standards or a spec, that review is skipped rather than guessed.
 
 To try a local checkout:
 
