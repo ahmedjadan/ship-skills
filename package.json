@@ -1,6 +1,6 @@
 {
   "name": "@ahmedjadan/ship-skills",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Installs Ship, a Claude Code plugin that takes a feature from spec to pull request with an enforced lifecycle, evidence and permissions.",
   "type": "module",
   "license": "MIT",

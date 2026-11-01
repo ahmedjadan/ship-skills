@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.1
 
 - `npx @ahmedjadan/ship-skills` installs the plugin through Claude Code.
 - `/ship:review` works on any branch or PR with no config, read-only.
