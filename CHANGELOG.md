@@ -2,7 +2,7 @@
 
 ## 0.1.1
 
-- `npx @ahmedjadan/ship-skills` installs the plugin through Claude Code.
+- `npx @ahmedjadan/ship-skills` installs the plugin through Claude Code, updates an existing install, and adds `update`, `status`, `uninstall`, `--help` and `--version`.
 - `/ship:review` works on any branch or PR with no config, read-only.
 - `ship config` warns about repos with no commits or no gates, and `ship` gives a clear `NO_COMMITS` error.
 

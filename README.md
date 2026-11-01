@@ -31,6 +31,8 @@ Requires Claude Code and Node 20 or later.
 npx @ahmedjadan/ship-skills
 ```
 
+Run the same command to update. `update`, `status` and `uninstall` are also available; add `--help` for details.
+
 Or inside Claude Code:
 
 ```text
