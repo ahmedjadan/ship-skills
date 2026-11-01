@@ -27,6 +27,12 @@ You approve the spec, ticket breakdown, plan, review and PR. Everything else run
 
 Requires Claude Code and Node 20 or later.
 
+```bash
+npx @ahmedjadan/ship-skills
+```
+
+Or inside Claude Code:
+
 ```text
 /plugin marketplace add ahmedjadan/ship-skills
 /plugin install ship@ship-skills
