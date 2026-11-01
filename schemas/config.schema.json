@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "required": ["version", "repos", "tracker", "specs", "gates", "branch"],
+  "properties": {
+    "version": { "type": "number", "enum": [1] },
+    "repos": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["name", "path", "base"],
+        "properties": { "name": { "type": "string" }, "path": { "type": "string" }, "base": { "type": "string" } }
+      }
+    },
+    "tracker": {
+      "type": "object", "required": ["kind"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["files", "github", "linear", "custom"] },
+        "path": { "type": "string" }, "repo": { "type": "string" }, "team": { "type": "string" }, "adapter": { "type": "string" }
+      }
+    },
+    "specs": {
+      "type": "object", "required": ["path"],
+      "properties": { "path": { "type": "string" }, "acceptance_id": { "type": "string" } }
+    },
+    "read_before_change": { "type": "array", "items": { "type": "string" } },
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["repo", "name", "command", "agent_may_run"],
+        "properties": {
+          "repo": { "type": "string" }, "name": { "type": "string" }, "command": { "type": "string" },
+          "agent_may_run": { "type": "boolean" }
+        }
+      }
+    },
+    "build_order": { "type": "array", "items": { "type": "string" } },
+    "done": { "type": "array", "items": { "type": "string" } },
+    "branch": { "type": "string" },
+    "commit": { "type": "string" },
+    "hard_rules": { "type": "array", "items": { "type": "string" } },
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "push_ticket_branch": { "type": "string", "enum": ["allow", "ask", "deny"] },
+        "open_pr": { "type": "string", "enum": ["allow", "ask", "deny"] },
+        "tracker_write": { "type": "string", "enum": ["allow", "ask", "deny"] },
+        "push_base": { "type": "string", "enum": ["allow", "ask", "deny"] },
+        "merge": { "type": "string", "enum": ["allow", "ask", "deny"] },
+        "force_push": { "type": "string", "enum": ["allow", "ask", "deny"] },
+        "destructive_history": { "type": "string", "enum": ["allow", "ask", "deny"] },
+        "custom": {
+          "type": "array",
+          "items": {
+            "type": "object", "required": ["name", "pattern", "policy"],
+            "properties": {
+              "name": { "type": "string" }, "pattern": { "type": "string" },
+              "policy": { "type": "string", "enum": ["allow", "ask", "deny"] }
+            }
+          }
+        }
+      }
+    }
+  }
+}

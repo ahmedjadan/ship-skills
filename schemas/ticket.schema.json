@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "required": ["id", "title", "body", "status", "blockedBy", "acceptance", "url"],
+  "properties": {
+    "id": { "type": "string" },
+    "title": { "type": "string" },
+    "body": { "type": "string" },
+    "status": { "type": "string", "enum": ["ready", "in_progress", "in_review", "done", "blocked"] },
+    "blockedBy": { "type": "array", "items": { "type": "string" } },
+    "acceptance": { "type": "array", "items": { "type": "string" } },
+    "url": { "type": "string" },
+    "spec": { "type": "string" }
+  }
+}

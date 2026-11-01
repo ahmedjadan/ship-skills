@@ -1,0 +1,7 @@
+{
+  "name": "ship-skills",
+  "owner": { "name": "Ahmed Jadan" },
+  "plugins": [
+    { "name": "ship", "source": "./", "description": "Spec-to-PR delivery with enforced lifecycle, evidence and permissions." }
+  ]
+}

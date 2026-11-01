@@ -1,0 +1,8 @@
+{
+  "name": "ship",
+  "version": "0.1.0",
+  "description": "A small deterministic delivery framework: spec, tickets, implement, review, pr, with enforced lifecycle, evidence and permissions.",
+  "author": { "name": "Ahmed Jadan" },
+  "license": "MIT",
+  "keywords": ["delivery", "workflow", "spec", "tickets", "pull-request"]
+}

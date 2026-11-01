@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "required": ["ticket", "state", "steps", "evidence", "decisions", "prs", "history"],
+  "properties": {
+    "ticket": { "$ref": "ticket" },
+    "state": { "type": "string", "enum": ["planned", "building", "verifying", "reviewing", "pr_open", "done", "paused"] },
+    "pausedFrom": { "type": "string" },
+    "plan": { "type": "object" },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["id", "title", "repo"],
+        "properties": { "id": { "type": "string" }, "title": { "type": "string" }, "repo": { "type": "string" } }
+      }
+    },
+    "evidence": { "type": "array" },
+    "decisions": { "type": "array" },
+    "review": { "type": "object" },
+    "prs": { "type": "array" },
+    "history": { "type": "array" }
+  }
+}
